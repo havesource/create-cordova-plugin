@@ -1,0 +1,52 @@
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    id="<%= answers.id %>"
+    version="1.0.0">
+
+    <!-- Plugin Details -->
+    <name><%= answers.name %></name>
+    <description><%= answers.description %></description>
+    <license><%= answers.license %></license>
+    <keywords>cordova,plugin</keywords>
+
+    <js-module src="www/<%= answers.apiName %>.js" name="<%= answers.apiName %>">
+        <!-- Clobbers on the window object. E.g window.<%= answers.apiName %> -->
+        <clobbers target="<%= answers.apiName %>" />
+    </js-module>
+
+    <!-- Plugin's Platform Settings -->
+    <% if (answers.platforms.includes('android')) { %><platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="<%= answers.apiName %>">
+                <param name="android-package" value="<%= answers.androidPackage %>.<%= answers.apiName %>" />
+                <!-- <param name="onload" value="true" /> -->
+            </feature>
+        </config-file>
+
+        <!-- Add Preference Settings to Application, E.g. Enable Kotlin Support -->
+        <config-file target="config.xml" parent="/*">
+            <preference name="GradlePluginKotlinEnabled" value="true" />
+        </config-file>
+
+        <!-- Load Plugin Source Files -->
+        <source-file src="src/android/<%= additionalData.androidPackagePathPartial %>/<%= answers.apiName %>.kt" target-dir="java/<%= additionalData.androidPackagePathPartial %>" />
+    </platform>
+    <% } %>
+    <% if (answers.platforms.includes('electron')) { %><platform name="electron">
+        <framework src="src/electron" />
+    </platform>
+    <% } %>
+    <% if (answers.platforms.includes('ios')) { %><platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="<%= answers.apiName %>">
+                <param name="ios-package" value="<%= answers.apiName %>" />
+                <!-- <param name="onload" value="true" /> -->
+            </feature>
+
+            <!-- Add Preference Settings to Application, E.g. Swift Version -->
+            <preference name="SwiftVersion" value="5.0" />
+        </config-file>
+
+        <!-- Load Plugin Source Files -->
+        <source-file src="src/ios/<%= answers.apiName %>.swift" />
+    </platform><% } %>
+</plugin>

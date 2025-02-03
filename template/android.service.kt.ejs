@@ -1,0 +1,61 @@
+package <%= answers.androidPackage %>
+
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.util.Log
+
+import org.apache.cordova.*
+import org.json.JSONArray
+
+@SuppressLint("LongLogTag", "LogConditional")
+class <%= answers.apiName %> : CordovaPlugin() {
+  companion object {
+    // Logging Tag
+    private const val TAG: String = "<%= answers.apiName %>"
+
+    // Private Properties
+
+    // Front-end API Action's Key
+    private const val ACTION_SAMPLE: String = "sample"
+  }
+
+  private val activity: Activity
+    get() = cordova.activity
+
+  // Plugins Initializing Logic
+  override fun pluginInitialize() {
+    super.pluginInitialize()
+  }
+
+  /**
+   * Android entry point for action calls
+   *
+   * @param action
+   * @param data
+   * @param callbackContext
+   */
+  override fun execute(
+    action: String,
+    data: JSONArray,
+    callbackContext: CallbackContext
+  ): Boolean {
+    Log.d(TAG, "Attempting to run action: \"$action\"")
+
+    when (action) {
+      ACTION_SAMPLE -> sample(data, callbackContext)
+
+      else -> {
+        Log.e(TAG, "Failed to find action: \"$action\".")
+        callbackContext.sendPluginResult(PluginResult(PluginResult.Status.INVALID_ACTION))
+        return false
+      }
+    }
+
+    return true
+  }
+
+  // Front-end API Actions
+  private fun sample(data: JSONArray, callbackContext: CallbackContext) {
+    callbackContext.success("Sample was a success")
+  }
+}

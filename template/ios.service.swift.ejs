@@ -1,0 +1,17 @@
+#if canImport(Cordova)
+import Cordova
+#endif
+
+@objc(<%= answers.apiName %>)
+class <%= answers.apiName %> : CDVPlugin {
+  // MARK: Private Properties
+
+  // MARK: Plugins Initializing Logic
+  override func pluginInitialize() {}
+
+  // MARK: APIs exposed to front-end
+  @objc func sample(_ command : CDVInvokedUrlCommand) {
+    let result = CDVPluginResult(status: .ok, messageAs: "Sample was a success")
+    self.commandDelegate.send(result, callbackId: command.callbackId)
+  }
+}

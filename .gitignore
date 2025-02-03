@@ -1,0 +1,11 @@
+# Random OS Files/Dirs
+.DS_Store
+
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
