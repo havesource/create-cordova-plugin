@@ -48,7 +48,7 @@ class CreateCordovaPlugin {
         this.location.wwwDir = path.join(this.location.pluginDir, 'www');
 
         this.additionalData = {};
-        this.additionalData.androidPackagePathPartial = this.answers.androidPackage.split('.').join('/');
+        this.additionalData.androidPackagePathPartial = this.answers.androidPackage?.split('.')?.join('/');
     }
 
     async exec () {
