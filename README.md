@@ -23,20 +23,22 @@ A scaffolding tool for generating a basic structure for a Cordova plugin.
 ### Without Installing Globally or to a Project-Scope
 
 ```bash
-% npm init @havesource/cordova-plugin
+% npm init @havesource/cordova-plugin@latest
 ```
+
+_Note: Omitting the `@latest` tag will use the previously cached version instead of fetching the newest release._
 
 ### Using a Global Installation
 
 ```bash
-% npm install -g @havesource/cordova-plugin
+% npm install -g @havesource/cordova-plugin@latest
 % create-cordova-plugin
 ```
 
 ### Using a Project-Scope Installation
 
 ```bash
-% npm install @havesource/cordova-plugin
+% npm install @havesource/cordova-plugin@latest
 % npx create-cordova-plugin
 ```
 
