@@ -1,6 +1,6 @@
 {
   "name": "@havesource/create-cordova-plugin",
-  "version": "1.0.1-dev.0",
+  "version": "1.0.1",
   "description": "Quickly create Cordova plugin starter structure.",
   "main": "index.js",
   "type": "module",
