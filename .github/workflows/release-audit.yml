@@ -1,0 +1,76 @@
+# Copyright 2025 HaveSource
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Auditing
+
+on:
+  push:
+    branches-ignore:
+      - 'dependabot/**'
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  license-audit:
+    name: License Auditing
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm i
+
+      # Check license headers (v2.0.0)
+      - uses: erisu/apache-rat-action@46fb01ce7d8f76bdcd7ab10e7af46e1ea95ca01c
+
+      # Check node package licenses (v2.0.0)
+      - uses: erisu/license-checker-action@1c222d0c2f5898a4c40b8bd6fd6888650bd6f68a
+        with:
+          license-config: 'licence_checker.yml'
+          include-asf-category-a: true
+
+  codeql-audit:
+    name: CodeQL Auditing
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm i
+
+      - uses: github/codeql-action/init@v4
+        with:
+          languages: javascript
+          queries: security-and-quality
+          config: |
+            paths-ignore:
+              - node_modules
+
+      - uses: github/codeql-action/analyze@v4
