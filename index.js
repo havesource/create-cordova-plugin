@@ -108,13 +108,13 @@ class CreateCordovaPlugin {
     async generatePluginXml () {
         const content = await this._renderEJSFile('plugin.xml.ejs');
         const outputPath = path.join(this.location.pluginDir, 'plugin.xml');
-        return await formatAndWriteFile(outputPath, content, 'utf-8');
+        return await formatAndWriteFile(outputPath, content);
     }
 
     async generateFrontendAPI () {
         const content = await this._renderEJSFile('api.js.ejs');
         const outputPath = path.join(this.location.wwwDir, `${this.answers.apiName}.js`);
-        return await formatAndWriteFile(outputPath, content, 'utf-8');
+        return await formatAndWriteFile(outputPath, content);
     }
 
     async generateAndroidContent () {
@@ -124,7 +124,7 @@ class CreateCordovaPlugin {
          */
         const content = await this._renderEJSFile('android.service.kt.ejs');
         const outputPath = path.join(this.location.platformAndroid, `${this.answers.apiName}.kt`);
-        return await formatAndWriteFile(outputPath, content, 'utf-8');
+        return await formatAndWriteFile(outputPath, content);
     }
 
     async generateElectronContent () {
@@ -146,13 +146,13 @@ class CreateCordovaPlugin {
 
         const content = await this._renderEJSFile('electron.service.js.ejs');
         const outputPath = path.join(this.location.platformElectron, 'index.js');
-        return await formatAndWriteFile(outputPath, content, 'utf-8');
+        return await formatAndWriteFile(outputPath, content);
     }
 
     async generateiOSContent () {
         const content = await this._renderEJSFile('ios.service.swift.ejs');
         const outputPath = path.join(this.location.platformIos, `${this.answers.apiName}.swift`);
-        return await formatAndWriteFile(outputPath, content, 'utf-8');
+        return await formatAndWriteFile(outputPath, content);
     }
 
     async _renderEJSFile (fileName) {
